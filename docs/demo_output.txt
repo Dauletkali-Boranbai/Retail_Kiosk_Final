@@ -1,0 +1,38 @@
+
+--- 1. Laptop with warranty + mouse, card, no promo ---
+  Subtotal $945.00, promo: No promotion
+  [Dashboard] ORD-1001 by Aigerim via Card: $945.00 | total sales=1, revenue=$945.00
+  Result: SUCCESS ($945.00) OK
+
+--- 2. 2x gift-wrapped headphones, cash, 20% off (triggers low stock) ---
+  Subtotal $126.00, promo: 20% off
+  [Dashboard] ORD-1002 by Nurlan via Cash: $100.80 | total sales=2, revenue=$1045.80
+  [StockAlert] LOW STOCK: HEA (1 left)
+  Result: SUCCESS ($100.80) OK
+
+--- 3. 4x coffee, QR, buy-one-get-one ---
+  Subtotal $16.00, promo: Buy 1 get 1 free (COF)
+  [Dashboard] ORD-1003 by Dana via QR: $8.00 | total sales=3, revenue=$1053.80
+  Result: SUCCESS ($8.00) OK
+
+--- 4. Laptop + mouse bundle, card ---
+  Subtotal $825.00, promo: Bundle LAP + MOU (-50.00)
+  [Dashboard] ORD-1004 by Timur via Card: $775.00 | total sales=4, revenue=$1828.80
+  Result: SUCCESS ($775.00) OK
+
+--- 5. 2 laptops by card (declined: over card limit) ---
+  Subtotal $1600.00, promo: No promotion
+  Result: FAILED ($1600.00) Card payment declined
+
+--- 6. Headphones on two lines, one gift-wrapped and engraved (out of stock) ---
+  Subtotal $128.00, promo: No promotion
+  Result: FAILED ($0.00) Out of stock
+
+=== Transaction log ===
+  Card $945.00 -> APPROVED
+  Cash $100.80 -> APPROVED
+  QR $8.00 -> APPROVED
+  Card $775.00 -> APPROVED
+  Card $1600.00 -> DECLINED
+
+=== Final dashboard: 4 sales, $1828.80 revenue ===

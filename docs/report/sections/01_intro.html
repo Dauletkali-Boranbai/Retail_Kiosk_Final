@@ -1,0 +1,29 @@
+<section>
+<div class="kicker">Design Patterns / SE-2513</div>
+<h1>Retail Store Kiosk</h1>
+<div class="team"><p><b>Final project report</b></p>
+<p>Boranbai Dauletkali &middot; Kantarbayev Alibek &middot; Tikzhanov Aldiyar</p>
+<p>Git repository: https://github.com/Dauletkali-Boranbai/Final_Kiosk_Retail.git</p></div>
+
+<h2>Introduction</h2>
+<p>The project is a console model of a self-service retail kiosk. A customer's order is assembled from products with optional extras (gift wrap, warranty, engraving), a promotion is applied, the payment is simulated with card, cash or QR, and a successful sale reduces the stock and updates a live sales dashboard and a low-stock alert. The application uses Java 17 and the standard library only. Six design patterns (two creational, two structural, two behavioral) work together in one checkout flow.</p>
+
+<h2>Project body</h2>
+<h3>Patterns and team allocation</h3>
+<p>Each team member implemented two patterns individually; the commit history of the repository shows who changed which package.</p>
+<table>
+<tr><th>Package</th><th>Pattern</th><th>Category</th><th>Role in the kiosk</th><th>Implemented by</th></tr>
+<tr><td>builder</td><td>Builder</td><td>Creational</td><td>Assembles an order from item lines</td><td>Kantarbayev Alibek</td></tr>
+<tr><td>strategy</td><td>Strategy</td><td>Behavioral</td><td>Interchangeable promotion rules</td><td>Kantarbayev Alibek</td></tr>
+<tr><td>factory</td><td>Factory Method</td><td>Creational</td><td>Creates card, cash or QR payments</td><td>Boranbai Dauletkali</td></tr>
+<tr><td>facade</td><td>Facade</td><td>Structural</td><td>One call for the whole checkout</td><td>Boranbai Dauletkali</td></tr>
+<tr><td>decorator</td><td>Decorator</td><td>Structural</td><td>Adds gift wrap, warranty, engraving</td><td>Tikzhanov Aldiyar</td></tr>
+<tr><td>observer</td><td>Observer</td><td>Behavioral</td><td>Sales dashboard and low-stock alerts</td><td>Tikzhanov Aldiyar</td></tr>
+</table>
+
+<h3>Structure</h3>
+<p><code>Main.java</code> is the only class outside the six pattern packages. It creates the objects, runs six checkout scenarios and verifies the results. Every other class lives in a pattern package, with subpackages that follow the pattern roles (for example <code>factory/creators</code> and <code>factory/methods</code>).</p>
+
+<h3>Checkout flow</h3>
+<p>The Builder creates the order, and decorated products are ordinary items in it. <code>KioskFacade.checkout()</code> groups the quantities by SKU and checks the stock, asks the Strategy for the final price, asks the Factory Method for a payment object and processes it. After an approved payment it reduces the stock and publishes events to the Observers. A declined payment or missing stock stops the flow before anything is changed. Details, UML diagrams and code of each pattern follow in the next sections.</p>
+</section>

@@ -1,0 +1,19 @@
+classDiagram
+direction LR
+class PriceCalculator {
+  +finalTotal(Order, PricingStrategy) BigDecimal
+}
+class PricingStrategy {
+  <<interface>>
+  +discount(Order) BigDecimal
+  +name() String
+}
+class NoDiscount
+class PercentageDiscount
+class BuyOneGetOne
+class BundleDiscount
+PriceCalculator ..> PricingStrategy : applies
+PricingStrategy <|.. NoDiscount
+PricingStrategy <|.. PercentageDiscount
+PricingStrategy <|.. BuyOneGetOne
+PricingStrategy <|.. BundleDiscount

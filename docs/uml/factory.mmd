@@ -1,0 +1,36 @@
+classDiagram
+direction TB
+class PaymentCreator {
+  <<interface>>
+  +createPayment() PaymentMethod
+}
+class CardPaymentCreator
+class CashPaymentCreator
+class QrPaymentCreator
+class PaymentMethod {
+  <<interface>>
+  +pay(BigDecimal) boolean
+  +name() String
+}
+class AbstractPaymentMethod {
+  <<abstract>>
+  +pay(BigDecimal) boolean
+  #doPay(BigDecimal) boolean
+}
+class CardPayment
+class CashPayment
+class QrPayment
+class PaymentMethodFactory {
+  +create(PaymentType) PaymentMethod
+}
+PaymentCreator <|.. CardPaymentCreator
+PaymentCreator <|.. CashPaymentCreator
+PaymentCreator <|.. QrPaymentCreator
+PaymentMethod <|.. AbstractPaymentMethod
+AbstractPaymentMethod <|-- CardPayment
+AbstractPaymentMethod <|-- CashPayment
+AbstractPaymentMethod <|-- QrPayment
+CardPaymentCreator ..> CardPayment : creates
+CashPaymentCreator ..> CashPayment : creates
+QrPaymentCreator ..> QrPayment : creates
+PaymentMethodFactory o-- PaymentCreator : selects by PaymentType

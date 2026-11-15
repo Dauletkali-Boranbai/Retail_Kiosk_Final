@@ -1,0 +1,16 @@
+<section class="pagebreak">
+<h2>2. Factory Method and Facade</h2>
+<span class="owner">Implemented by Boranbai Dauletkali</span>
+
+<h3>Factory Method (creational)</h3>
+<p><code>PaymentCreator</code> declares the factory method <code>createPayment()</code>. <code>CardPaymentCreator</code>, <code>CashPaymentCreator</code> and <code>QrPaymentCreator</code> each decide which concrete <code>PaymentMethod</code> to instantiate. <code>PaymentMethodFactory</code> holds the creators in a map keyed by <code>PaymentType</code> and hands out the right one, so the checkout code never uses <code>new CardPayment()</code> and never contains an if/else over payment types. The shared validation (null or negative amount) lives once in <code>AbstractPaymentMethod.pay()</code> and each payment only implements <code>doPay()</code>, which keeps the code DRY. Adding Apple Pay means one new payment class and one new creator.</p>
+<figure><img src="../uml/factory.png" alt="Factory Method UML"><figcaption>Factory Method: each creator produces one kind of PaymentMethod.</figcaption></figure>
+<pre class="code" data-src="src/factory/PaymentMethodFactory.java"></pre>
+<pre class="code" data-src="src/factory/creators/CardPaymentCreator.java"></pre>
+
+<h3>Facade (structural)</h3>
+<p><code>KioskFacade.checkout(order, paymentType, promotion)</code> hides the whole checkout flow behind a single call: check stock, calculate the price, create the payment method, process it, write the audit record, reduce stock and publish events. The facade depends on two interfaces defined in its own subsystem, <code>StockService</code> and <code>PaymentGateway</code>, so the inventory or the payment backend can be replaced without touching the facade (Dependency Inversion). <code>PaymentProcessor</code> only processes the payment; the audit entry is written by <code>TransactionLog</code>, so each class has one responsibility. A declined payment returns before stock or observers are touched.</p>
+<figure><img src="../uml/facade.png" alt="Facade UML"><figcaption>Facade: the client talks to KioskFacade only; the subsystem classes stay hidden.</figcaption></figure>
+<figure><img src="../uml/checkout_sequence.png" alt="Checkout sequence"><figcaption>Sequence of one successful checkout() call.</figcaption></figure>
+<pre class="code" data-src="src/facade/KioskFacade.java" data-lines="19-61"></pre>
+</section>

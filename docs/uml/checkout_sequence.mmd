@@ -1,0 +1,19 @@
+sequenceDiagram
+participant M as Main
+participant F as KioskFacade
+participant I as StockService
+participant P as PriceCalculator
+participant PF as PaymentMethodFactory
+participant G as PaymentGateway
+participant L as TransactionLog
+participant E as EventPublisher
+M->>F: checkout(order, type, promotion)
+F->>I: isAvailable(quantities)
+F->>P: finalTotal(order, promotion)
+F->>PF: create(type)
+F->>G: process(method, total)
+F->>L: record(method, total, approved)
+F->>I: reduceStock(quantities)
+F->>E: publish(SaleEvent)
+E-->>M: SalesDashboard.onEvent
+F-->>M: CheckoutResult

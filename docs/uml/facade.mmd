@@ -1,0 +1,27 @@
+classDiagram
+direction TB
+class KioskFacade {
+  +checkout(Order, PaymentType, PricingStrategy) CheckoutResult
+}
+class StockService {
+  <<interface>>
+}
+class PaymentGateway {
+  <<interface>>
+}
+class InventoryService
+class StockRepository
+class PaymentProcessor
+class TransactionLog
+class PriceCalculator
+class PaymentMethodFactory
+class EventPublisher
+KioskFacade --> StockService
+KioskFacade --> PaymentGateway
+KioskFacade --> TransactionLog
+KioskFacade --> PriceCalculator
+KioskFacade --> PaymentMethodFactory
+KioskFacade --> EventPublisher
+StockService <|.. InventoryService
+PaymentGateway <|.. PaymentProcessor
+InventoryService --> StockRepository

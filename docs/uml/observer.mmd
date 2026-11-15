@@ -1,0 +1,23 @@
+classDiagram
+direction LR
+class EventPublisher {
+  +subscribe(Class, KioskListener)
+  +unsubscribe(Class, KioskListener)
+  +publish(KioskEvent)
+}
+class KioskListener~E~ {
+  <<interface>>
+  +onEvent(E)
+}
+class SalesDashboard
+class StockAlertLogger
+class KioskEvent {
+  <<interface>>
+}
+class SaleEvent
+class LowStockEvent
+EventPublisher o--> "*" KioskListener : per event type
+KioskListener <|.. SalesDashboard : SaleEvent
+KioskListener <|.. StockAlertLogger : LowStockEvent
+KioskEvent <|.. SaleEvent
+KioskEvent <|.. LowStockEvent

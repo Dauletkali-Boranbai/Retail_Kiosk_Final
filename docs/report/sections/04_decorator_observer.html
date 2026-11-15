@@ -1,0 +1,16 @@
+<section class="pagebreak">
+<h2>3. Decorator and Observer</h2>
+<span class="owner">Implemented by Tikzhanov Aldiyar</span>
+
+<h3>Decorator (structural)</h3>
+<p>Extras are added to a product at run time without subclassing every combination. <code>ProductDecorator</code> implements <code>Product</code>, wraps another <code>Product</code> and passes the SKU through unchanged, so stock is still counted per real product. <code>GiftWrap</code> adds $3.00, <code>ExtendedWarranty</code> adds 15% and <code>Engraving</code> adds $5.00. Decorators can be stacked: scenario 6 of the demo orders <code>new GiftWrap(new Engraving(headphones))</code>, and the price and name are composed layer by layer. Every decorator can be used wherever a <code>Product</code> is expected (Liskov Substitution).</p>
+<figure><img src="../uml/decorator.png" alt="Decorator UML"><figcaption>Decorator: three add-ons wrap any Product.</figcaption></figure>
+<pre class="code" data-src="src/decorator/addons/ProductDecorator.java"></pre>
+<pre class="code" data-src="src/decorator/addons/Engraving.java"></pre>
+
+<h3>Observer (behavioral)</h3>
+<p>After a successful checkout the facade only publishes events; it does not know who reacts. <code>EventPublisher</code> is the subject. A listener subscribes to one event type, for example <code>SalesDashboard</code> to <code>SaleEvent</code> and <code>StockAlertLogger</code> to <code>LowStockEvent</code>, and receives only events of that type. The generic interface <code>KioskListener&lt;E&gt;</code> removes the <code>instanceof</code> checks that a single shared callback would need: a new event type or a new listener is added without editing existing observers (Open/Closed). Listeners can also unsubscribe; <code>Main</code> checks that an unsubscribed dashboard no longer receives sales.</p>
+<figure><img src="../uml/observer.png" alt="Observer UML"><figcaption>Observer: typed subscriptions between EventPublisher and its listeners.</figcaption></figure>
+<pre class="code" data-src="src/observer/EventPublisher.java"></pre>
+<pre class="code" data-src="src/observer/subscribers/SalesDashboard.java"></pre>
+</section>

@@ -1,0 +1,23 @@
+classDiagram
+direction TB
+class Product {
+  <<interface>>
+  +getSku() String
+  +getName() String
+  +getPrice() BigDecimal
+}
+class BasicProduct
+class ProductDecorator {
+  <<abstract>>
+  #wrapped: Product
+  +getSku() String
+}
+class GiftWrap
+class ExtendedWarranty
+class Engraving
+Product <|.. BasicProduct
+Product <|.. ProductDecorator
+ProductDecorator o--> Product : wraps
+ProductDecorator <|-- GiftWrap
+ProductDecorator <|-- ExtendedWarranty
+ProductDecorator <|-- Engraving

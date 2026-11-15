@@ -1,0 +1,15 @@
+<section class="pagebreak">
+<h2>1. Builder and Strategy</h2>
+<span class="owner">Implemented by Kantarbayev Alibek</span>
+
+<h3>Builder (creational)</h3>
+<p>An order is assembled step by step: a customer name and any number of product lines. <code>OrderBuilder</code> collects the lines and <code>build()</code> returns an immutable <code>Order</code> with a generated id. The <code>Order</code> constructor is package-private, so the only way to obtain an order is the builder. An order with no items is rejected. <code>OrderDirector</code> stores two ready-made recipes (single item, pair of items), which is the Director role of the pattern. Decorated products (gift wrap, warranty) are passed to the builder like any other <code>Product</code>.</p>
+<figure><img src="../uml/builder.png" alt="Builder UML"><figcaption>Builder: OrderBuilder creates Order; OrderDirector reuses the builder.</figcaption></figure>
+<pre class="code" data-src="src/builder/OrderBuilder.java"></pre>
+
+<h3>Strategy (behavioral)</h3>
+<p>A promotion is a <code>PricingStrategy</code>: it receives the order and returns the discount amount. <code>PriceCalculator</code> is the stateless context: the strategy is passed into every call, so one shared calculator can serve any number of orders with different promotions and no hidden state. Four strategies exist: no discount, percentage, buy-one-get-one and bundle. A new promotion is a new class; nothing else changes (Open/Closed). All money is <code>BigDecimal</code> rounded half-up to two decimals, so totals such as $100.80 are exact.</p>
+<figure><img src="../uml/strategy.png" alt="Strategy UML"><figcaption>Strategy: PriceCalculator applies any of the four PricingStrategy implementations.</figcaption></figure>
+<pre class="code" data-src="src/strategy/PriceCalculator.java"></pre>
+<pre class="code" data-src="src/strategy/promotions/BuyOneGetOne.java"></pre>
+</section>

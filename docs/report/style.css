@@ -1,0 +1,28 @@
+@page { size: A4; margin: 18mm 16mm 20mm 16mm; }
+* { box-sizing: border-box; }
+body { font-family: "Helvetica Neue", Arial, "Liberation Sans", sans-serif; font-size: 10pt; line-height: 1.45; color: #1d2733; margin: 0; }
+h1 { font-size: 24pt; margin: 0 0 4pt; color: #12324f; }
+h2 { font-size: 14pt; color: #12324f; border-bottom: 1.5px solid #12324f; padding-bottom: 2pt; margin: 18pt 0 6pt; break-after: avoid; }
+h3 { font-size: 11pt; color: #1f5a8a; margin: 12pt 0 4pt; break-after: avoid; }
+p { margin: 0 0 6pt; }
+.kicker { font-size: 8.5pt; letter-spacing: .08em; color: #5b6b7b; text-transform: uppercase; }
+.team p { margin: 0; }
+table { border-collapse: collapse; width: 100%; margin: 6pt 0 10pt; font-size: 9pt; break-inside: avoid; }
+th { background: #12324f; color: #fff; text-align: left; padding: 4pt 6pt; }
+td { padding: 4pt 6pt; border-bottom: 1px solid #d5dde5; vertical-align: top; }
+tr:nth-child(even) td { background: #f4f7fa; }
+figure { margin: 8pt 0 10pt; text-align: center; break-inside: avoid; counter-increment: fig; }
+figure img { max-width: 100%; max-height: 80mm; }
+figcaption { font-size: 8.5pt; color: #5b6b7b; margin-top: 3pt; }
+figcaption::before { content: "Figure " counter(fig) ". "; font-weight: bold; }
+body { counter-reset: fig; }
+.codebox { margin: 6pt 0 10pt; border: 1px solid #d5dde5; border-radius: 3px; }
+.codetitle { background: #e8eef4; font-size: 8pt; font-weight: bold; color: #12324f; padding: 2pt 6pt; }
+pre { margin: 0; padding: 5pt 7pt; font-family: "DejaVu Sans Mono", Menlo, Consolas, monospace; font-size: 7.6pt; line-height: 1.35; white-space: pre-wrap; background: #fafbfc; }
+.shot { background: #111c27; border-radius: 3px; }
+.shot img { width: 100%; display: block; }
+.note { font-size: 9pt; color: #3d4b59; }
+.owner { display: inline-block; background: #e8f1fa; color: #12324f; font-size: 8.5pt; padding: 1pt 7pt; border-radius: 9px; margin: 0 0 6pt; }
+section { break-inside: auto; }
+.pagebreak { break-before: auto; }
+.codetitle { break-after: avoid; }

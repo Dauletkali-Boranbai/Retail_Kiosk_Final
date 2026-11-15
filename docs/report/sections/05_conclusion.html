@@ -1,0 +1,21 @@
+<section class="pagebreak">
+<h2>4. Demo and verification</h2>
+<p>Run with <code>sh build.sh</code> (JDK 17+). <code>Main</code> executes six scenarios and throws an exception if a result is wrong: four sales succeed for a total of $1,828.80, a card payment above the $1,000 limit is declined, an order for more headphones than are in stock is rejected, both failures leave the stock unchanged, and an unsubscribed dashboard no longer receives sales.</p>
+<figure class="shot"><div class="shot"><img src="../img/console-output.png" alt="Console output"></div><figcaption>Console output of the demo (docs/demo_output.txt).</figcaption></figure>
+</section>
+
+<section>
+<h2>5. Clean code and SOLID</h2>
+<p><b>SRP.</b> <code>InventoryService</code> manages stock, <code>PriceCalculator</code> only calculates a price, <code>PaymentProcessor</code> only processes a payment and <code>TransactionLog</code> only records it.</p>
+<p><b>OCP.</b> A new promotion, payment type, product add-on or event listener is a new class; no existing class changes.</p>
+<p><b>LSP.</b> <code>BasicProduct</code> and every decorator can replace each other as a <code>Product</code>; all payment methods keep the contract of <code>PaymentMethod</code>.</p>
+<p><b>ISP.</b> The interfaces are small: <code>KioskListener</code>, <code>PricingStrategy</code>, <code>PaymentCreator</code>, <code>StockService</code> and <code>PaymentGateway</code> each declare only what their clients use.</p>
+<p><b>DIP.</b> The facade depends on the <code>StockService</code> and <code>PaymentGateway</code> interfaces, pricing depends on <code>PricingStrategy</code> and payment depends on <code>PaymentMethod</code>. <code>PriceCalculator</code>, <code>PaymentMethodFactory</code> and <code>EventPublisher</code> are still injected as concrete classes, which is a known limitation.</p>
+<p><b>KISS and DRY.</b> Money is a <code>BigDecimal</code> rounded in one place; payment validation is written once in <code>AbstractPaymentMethod</code>; quantities are grouped by SKU once and reused for the stock check and the stock update.</p>
+
+<h2>Conclusion</h2>
+<p>The kiosk integrates six design patterns (Builder, Factory Method, Decorator, Facade, Observer and Strategy) in one coherent checkout flow, and every pattern is exercised by the demo. Each pattern sits in its own package, and the facade keeps the client code to a single call. The patterns made the later changes cheap: money type, stateless pricing, typed observers and a third decorator were added without touching unrelated packages.</p>
+
+<h2>Further work</h2>
+<p>Persist the stock and the transaction log between runs, introduce interfaces for the remaining concrete collaborators of the facade, add a touchscreen user interface and connect a real payment provider. Unit tests could replace the checks in <code>Main</code>.</p>
+</section>

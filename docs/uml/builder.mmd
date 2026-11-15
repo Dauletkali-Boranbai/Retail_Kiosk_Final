@@ -1,0 +1,30 @@
+classDiagram
+direction LR
+class OrderBuilder {
+  -customer: String
+  -items: List~OrderItem~
+  +customer(String) OrderBuilder
+  +addItem(Product, int) OrderBuilder
+  +build() Order
+}
+class OrderDirector {
+  +singleItemOrder(String, Product, int) Order
+  +pairOrder(String, Product, Product) Order
+}
+class Order {
+  -id: String
+  -customer: String
+  -items: List~OrderItem~
+  +getSubtotal() BigDecimal
+  +quantitiesBySku() Map
+  +getItemCount() int
+}
+class OrderItem {
+  <<record>>
+  +product: Product
+  +quantity: int
+  +lineTotal() BigDecimal
+}
+OrderDirector --> OrderBuilder : uses
+OrderBuilder ..> Order : creates
+Order *-- OrderItem
